@@ -1,47 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <div id="c"></div>
-  </head>
-  <body>
-    <script>
-      function p(s) {
-        const body = document.body;
-        body.innerText += "\n" + s;
-      }
-      function howMuchLetter(astr, what) {
-        let count = 0;
-        astr = astr.toUpperCase();
-        what = what.toUpperCase();
-        for (const pos in astr) {
-          //if (astr.toUpperCase().charAt(pos) === what.toUpperCase()) count++;
-          if (astr.charAt(pos) === what) count++;
-        }
-        return count;
-      }
+    <script type="module" src="app.js"></script>
+</head>
 
-      function howMuchWords(str) {
-        if (!str) throw "howMuchWords error: Nie podano stringa!";
-        str = deleteDoubleLetter(str, "!!", "!");
-        const temp = str.split("!");
-        return temp.length;
-      }
+<body>
 
-      function deleteDoubleLetter(str, del, ch) {
-        while (str.indexOf(del) > -1) str = str.replaceAll(del, ch);
-        return str;
-      }
+</body>
 
-      const str = "Ala!!!ma!!!!kota!!!!!!!!tt!!2";
-      const kreska = "-";
-      p(str);
-      p(`Spacji w tekscie: ${howMuchLetter(str, " ")}`);
-      p(`Liter w tekscie: ${str.length}`);
-      p(`Słów w tekscie (! to spacja): ${howMuchWords(str)}`);
-      p(kreska.repeat(55));
-    </script>
-  </body>
 </html>
