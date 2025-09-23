@@ -115,7 +115,12 @@ export function countWord(text) {
     }
     else console.log("Nie ma co liczyć");
 }
-
+function random(min, max) {
+    if (Number.isInteger(min) && Number.isInteger(max) && min < max)
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    else
+        throw ("Złe parametry")
+}
 export function generateID(how) {
     if (!how || !Number.isInteger(how))
         return console.log("Nie podałes liczby!");
@@ -123,7 +128,8 @@ export function generateID(how) {
     let t = "";
     //  for (let y = 0; y < 20; y++)
     while (id.length < how) {
-        t = Math.floor(Math.random() * 125);
+        // t = Math.floor(Math.random() * 125);
+        t = random(48, 125);
         if ((t >= 48)) id += String.fromCharCode(t);
     }
     console.log(id);
