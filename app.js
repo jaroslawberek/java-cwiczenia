@@ -1,11 +1,7 @@
-import PersonModule from './js/objects/person.js'
-import {
-    spliceTab, sliceTab, fileInfo,
-    formTab, concatTab, sort1, sort2, filterTabWords,
-    funparam, filterTab, fixName, WhaAlaDoing, countWord, generateID, printNumbers
-} from './js/tablice.js';
-
-console.log("z app.js");
+import PersonModule from "./js/objects/person.js";
+import { spliceTab, sliceTab, fileInfo, formTab, concatTab, sort1, sort2, filterTabWords, funparam, filterTab, fixName, WhaAlaDoing, countWord, generateID, printNumbers } from "./js/tablice.js";
+import { dom1 } from "./js/dom.js";
+/* console.log("z app.js");
 const p = new PersonModule.Person(12, "Jurek", "Imadełko", "21");
 PersonModule.$("#link").on("fun");
 console.log(p.getString());
@@ -34,4 +30,5 @@ console.log(fileInfo("dupapg"));
 generateID(15);
 // generateID();
 //printNumbers(12);
-//WhaAlaDoing("mrzec");
+//WhaAlaDoing("mrzec"); */
+dom1();
