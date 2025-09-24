@@ -1,0 +1,73 @@
+$color-dark: #212529;
+$color-light: #f8f9fa;
+$color-secondary: #6c757d;
+$spacer: 0.25rem; // = 4px (jeśli 1rem = 16px)
+
+$foother-bg-color: $color-dark;
+$foother-color: $color-light;
+$foother-column-gap: $spacer * 75;
+
+@mixin border($color, $opacity: 1, $position: bottom) {
+    border-#{$position}: 1px solid rgba($color, $opacity);
+}
+.foother {
+    display: flex;
+    flex-direction: column;
+    background-color: $foother-bg-color; // bg-dark
+    color: $foother-color; // text-light
+    padding: 0 3rem;
+
+    &__header {
+        margin: 0.25rem 0;
+        @include border(#fff, 0.1, bottom);
+        padding-top: 0.5rem; // py-2
+        padding-bottom: 0.5rem;
+    }
+
+    &__columns {
+        list-style: none;
+        width: 100%; //swieta lnijka aby na deskopie bylo rozłozone space around i between
+        display: flex;
+        justify-content: space-around;
+        //gap: $foother-column-gap;
+        margin: 1.5rem auto; //swieta linijka zeby na mobilu bylo posrodku
+        @media (max-width: 768px) {
+            justify-content: space-between;
+        }
+        @media (max-width: 576px) {
+            width: fit-content; //swieta linijka zeby na mobilu bylo posrodku
+            flex-direction: column;
+            row-gap: 53px;
+        }
+        &-item {
+        }
+    }
+    .foother__column-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .foother__column-caption {
+        color: yellow;
+        font-weight: bolder;
+        margin-bottom: 1rem;
+    }
+    .foother__link {
+        padding-bottom: 0.75rem;
+    }
+    .foother__link a {
+        text-decoration: none;
+        color: silver;
+
+        &:hover {
+            text-decoration: none;
+            color: white;
+        }
+    }
+
+    &__bottom {
+        text-align: center;
+        @include border($color-secondary, 0.25, top);
+        padding: 1rem; // p-3
+    }
+}
