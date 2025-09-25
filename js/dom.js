@@ -25,4 +25,15 @@ export function dom1() {
 
   const dd = document.querySelector(".foother__items-item[data-my-jakis-kutas-jebany-pizdoliz]:nth-of-type(2)");
   console.log(dd);
+  const input = document.querySelector("[name=search]");
+
+  input.addEventListener("input", (e) => {
+    const links = document.querySelectorAll(".foother__link");
+    links.forEach((el) => {
+      let e = el.textContent.toUpperCase();
+      let v = input.value.toUpperCase();
+      if (v.length > 1 && e.indexOf(v) > -1) el.style.visibility = "hidden";
+      else el.style.visibility = "visible";
+    });
+  });
 }
