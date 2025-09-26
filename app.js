@@ -1,6 +1,6 @@
 import PersonModule from "./js/objects/person.js";
 import { spliceTab, sliceTab, fileInfo, formTab, concatTab, sort1, sort2, filterTabWords, funparam, filterTab, fixName, WhaAlaDoing, countWord, generateID, printNumbers } from "./js/tablice.js";
-import { dom1 } from "./js/dom.js";
+import { toDo } from "./js/todo.js";
 /* console.log("z app.js");
 const p = new PersonModule.Person(12, "Jurek", "Imadełko", "21");
 PersonModule.$("#link").on("fun");
@@ -31,4 +31,5 @@ generateID(15);
 // generateID();
 //printNumbers(12);
 //WhaAlaDoing("mrzec"); */
-dom1();
+//dom1();
+toDo();

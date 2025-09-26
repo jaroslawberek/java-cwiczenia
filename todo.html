@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <script type="module" src="app.js"></script>
+    <title>To Do ver.1</title>
+  </head>
+  <style>
+    .main {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    .todo {
+      width: 100% !important;
+      height: fit-content;
+      margin: 2rem 1rem;
+    }
+    .todo__navbar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .todo__table {
+      width: 100%;
+    }
+    .todo__task {
+      border: 1px solid silver;
+      border-radius: 10px;
+      margin-bottom: 10px !important;
+      padding: 20px 0;
+    }
+    .todo__task-text {
+      text-align: left;
+      padding-left: 10px;
+    }
+
+    .todo__task-priority {
+      margin: 0 auto;
+      display: block;
+      width: 100px;
+      padding: 0.15rem 0.65rem;
+      border-radius: 10%;
+    }
+    tr {
+    }
+    tr td,
+    th {
+      vertical-align: middle;
+      text-align: center;
+    }
+    th {
+      vertical-align: middle;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <section class="main">
+      <article class="todo card">
+        <div class="todo__header card-header">
+          <h5 class="todo__title card-title">Lista To do ver.1</h5>
+          <nav class="todo__navbar">
+            <form class="todo__navbar-form d-flex flex-row gap-2" action="#">
+              <input type="text" class="form-control" placeholder="zadanie" />
+              <input type="text" class="form-control" placeholder="utworzono" />
+              <input type="text" class="form-control" placeholder="termin" />
+              <select class="form-select" id="inputGroupSelect01">
+                <option selected>wszytskie</option>
+                <option value="1">Normalny</option>
+                <option value="2">Średni</option>
+                <option value="3">Wysoki</option>
+              </select>
+            </form>
+            <ul class="todo__navbar-nav navbar-nav d-flex flex-row justify-content-end gap-3">
+              <li class="nav-item"><a href="#" class="nav-link">Nowe</a></li>
+              <li class="nav-item"><a href="#" class="nav-link">Zamknięte</a></li>
+              <li class="nav-item"><a href="#" class="nav-link">Anulowane</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="todo__body card-body">
+          <table class="todo__table">
+            <thead>
+              <tr class="todo__header">
+                <th scope="col">#</th>
+                <th class="w-50" scope="col">Zadanie</th>
+                <th scope="col">Utworzono</th>
+                <th scope="col">Termin</th>
+                <th scope="col">Priorytet</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="todo__task">
+                <th scope="row">1</th>
+                <td class="todo__task-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate vitae eaque repellat sed odit facere earum repudiandae aspernatur quam harum.</td>
+                <td>2025-09-12</td>
+                <td>2025-10-12</td>
+                <td><span class="todo__task-priority bg-info">Normalny</span></td>
+                <td class="todo__task-options">
+                  <a href="#" class="text-primary me-2"><i class="bi bi-pencil-square"></i></a><a href="#" class="text-danger"><i class="bi bi-trash"></i></a>
+                </td>
+              </tr>
+              <tr class="todo__task">
+                <th scope="row">2</th>
+                <td class="todo__task-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate vitae eaque repellat sed odit facere earum repudiandae aspernatur quam harum.</td>
+                <td>2025-09-12</td>
+                <td>2025-10-12</td>
+                <td><span class="todo__task-priority bg-danger">Wysoki</span></td>
+                <td class="todo__task-options">
+                  <a href="#" class="text-primary me-2"><i class="bi bi-pencil-square"></i></a><a href="#" class="text-danger"><i class="bi bi-trash"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>
