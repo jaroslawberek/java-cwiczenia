@@ -96,5 +96,126 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"></script>
+    <script>
+      // function fn() {
+      //   console.log(this);
+      //   console.log(this.id);
+      // }
+      // const obj2 = {
+      //   id: 2,
+      //   fun: fn,
+      // };
+      // var id = 8;
+      // console.log("Wywołąnie na rzecz obiektu obj:");
+      // obj2.fun();
+      // console.log("Wywołanie globalnie:");
+      // fn();
+      // console.log("a teraz wywolanie prze call");
+      // fn.call(obj2); //fun wywołąna na rzecz obiektu obj wiec ma jego this
+
+      /* obiekt przez konstrukto new*/
+      // function show() {
+      //   console.log(this);
+      // }
+      // function Point(x, y) {
+      //   this.x = x;
+      //   this.y = y;
+      //   this.fun = show;
+      // }
+      // const p1 = new Point(2, 3);
+      // console.log(p1);
+      // p1.fun();
+      // show();
+
+      /* obiekt */
+
+      const counter = {
+        count: 0,
+        inc: function () {
+          console.log("-----counter.inc2------");
+          const self = this; //tu widac this dla obiektu counter
+          setTimeout(function () {
+            // tu juz nie widac ale widac self...
+            console.log(self.count++);
+          }, 1000);
+          console.log("------------------------");
+        },
+        inc2: function () {
+          console.log("-----counter.inc2------");
+          setTimeout(
+            function () {
+              console.log(" W inc2 this: " + this + " count:" + this.count++);
+            }.bind(this), //bind wywoluje wew funkcje dla timeout z bindowanym this
+            1000
+          );
+          console.log("-------------------------");
+        },
+        moja: function () {
+          console.log("-----counter.moja------");
+          console.log("counter.moja this:     " + this);
+          const self = this;
+          moja_wew();
+          function moja_wew() {
+            console.log("moja_wew this - " + this); //windows
+            console.log("moja_wew self" + self); //counter
+            console.log("moja_wew count: " + self.count); //counter
+          }
+          console.log("-------------------------");
+        },
+        moja2: function () {
+          console.log("-----counter.moja2------");
+          console.log("counter.moja2 this:     " + this);
+          const self = this;
+
+          const moja_wew2 = () => {
+            console.log("moja_wew2 this - " + this); //counter bo strzalkowa nie ma swojego this
+            console.log("moja_wew2 self" + self); //counter
+            console.log("moja_wew2 count: " + self.count); //counter
+          };
+          moja_wew2();
+          console.log("-------------------------");
+        },
+        strzala_wew: function () {
+          console.log("-----counter.strzala_wew------");
+          setTimeout(() => {
+            console.log("strzala_wew dla this: " + this + " counter: " + this.count++);
+          }, 1000);
+          console.log("-------------------------");
+        },
+        strzala_obj: () => {
+          console.log("-----counter.strzala_obj------");
+          setTimeout(() => {
+            console.log("strzala dla this: " + this + this.count++);
+          }, 1000);
+          console.log("-------------------------");
+        },
+      };
+
+      // counter.inc();
+      // counter.inc2();
+      // counter.moja();
+      //counter.moja2();
+      //counter.strzala_wew(); //wewnetrzna funkja wewnatrz funkcji obiektu w strzałkowym wydaiu widzi this bo nie ma swojego
+      //counter.strzala_obj(); //przy strzalkowej funkcji obiektu nie widac wewnatrz this
+
+      const wehicle = {
+        id: 0,
+        name: "wehicle",
+        about: function () {
+          console.log("about: " + this.name);
+        },
+      };
+
+      const car = Object.create(wehicle);
+      car.type = "osobowy";
+      car.name = "Audi";
+      car.id = 1;
+
+      wehicle.about();
+      car.about();
+      console.log("------------------------------");
+      console.log(wehicle);
+      console.log(car);
+    </script>
   </body>
 </html>

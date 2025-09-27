@@ -1,0 +1,102 @@
+        
+        LEKCJA 1
+
+
+        const obj = {
+            id: 1,
+            name: "Janek",
+            show: function show(a) {
+                console.log(this);
+            }
+        }
+
+
+        /*
+            Pobranie ustawien dla własciwosci "id" -  value: , writable: , enumerable: , configurable: 
+        */
+
+        Object.getOwnPropertyDescriptor(obj, "id");  
+
+
+
+        /*
+            Ustawia ustawienia pola w obiekcie: nadpisywanie, mozliwosc wyswietlenia w petli i modyfikowanie
+        */
+
+        Object.defineProperty(obj, "name", {     
+            value: true   ,
+            writable: false,  // nie bedzie mozna zmieniac wartosci 
+            enumerable: false  // nie wyswietlimy w petli 
+            configurable: true;
+        })
+
+
+        /*
+        Odbiera mozliwosć rozszerzania obiektu o nowe wlasciwosc. Mozna jednak modyfikowac i usuwac własciwosci 
+        i sprawdzac ustawienia dla pol
+        */
+
+        Object.preventExtensions(obj); 
+
+
+        /*
+        Tak sprawdzamy czy obiekt jest rozszerzalny
+        */
+
+        Object.isExtensible(obj); 
+
+
+        /*
+        Zapieczetowanie (seal)  obiektu bardziej restrykcyjne niz preventExtensions: 
+            - nie dodamy nowej własciwosci 
+            - nie usuniemy własciwosci 
+            - mozemy zmieniac własciwosc
+            writable: true , enumerable: true , configurable: FALSE (!)
+        */
+
+        Object.seal(obj);
+
+        obj.nowa = "nowy";      //Cannot add property nowa, object is not extensible
+        delete obj.id;          //Cannot delete property 'id' of #<Object>
+        
+
+        /*
+        Zamrożenie (freeze)  obiektu najbardziej  restrykcyjne 
+            - nie dodamy nowej własciwosci 
+            - nie usuniemy własciwosci 
+            - nie mozemy zmieniac własciwosc
+            writable: FALSE(!) , enumerable: true , configurable: FALSE (!)
+        */
+
+         Object.freeze(obj);
+         obj.id = 453;         //Cannot assign to read only property 'id' of object '#<Object>'
+
+
+        LEKCJA 2
+        ----------------------------------------------------------------------------------------------------------------
+       
+
+        /*
+        Sprawdzenie czy obiekt posiada włąsciwość.  
+            
+        */
+
+         if(Object.hasOwn(obj, "name")) 
+
+
+
+         /*
+         AKCESSORY - GETTERY I SETTERY
+            
+        */
+          var obj2{
+            get id(){
+                return _id_;        //jakby pseudoprywatna wlasiwosc _id_ referencja do id w obiekcie. Tu mozna nadaj jakas logike.
+            }
+            set id(v){
+                this _id_ = v;      //tu mozna nadaj jakas logike np. v + 1
+            }
+         };
+         obj2.id=66;                //rusza seter id(v)
+         console.log(obj.id)        //rusza geter id();
+
