@@ -2,6 +2,7 @@ import PersonModule from "./js/objects/person.js";
 // import Handlebars from "https://esm.sh/handlebars";
 import { spliceTab, sliceTab, fileInfo, formTab, concatTab, sort1, sort2, filterTabWords, funparam, filterTab, fixName, WhaAlaDoing, countWord, generateID, printNumbers } from "./js/tablice.js";
 import { InitToDo } from "./js/todo.js";
+import ToDo from "./js/todo2.js";
 /* console.log("z app.js");
 const p = new PersonModule.Person(12, "Jurek", "Imadełko", "21");
 PersonModule.$("#link").on("fun");
@@ -74,3 +75,15 @@ generateID(15);
 
 /*********************************** */
 
+
+ToDo({
+    content: "#todo",
+    onLoad: function () {
+        const l = document.querySelector(".loading");
+        l.classList.toggle("d-none");
+    },
+    onLoaded: function () {
+        const l = document.querySelector(".loading");
+        l.classList.toggle("d-none");
+    },
+}); 

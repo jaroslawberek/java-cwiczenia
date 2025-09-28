@@ -198,24 +198,46 @@
       //counter.strzala_wew(); //wewnetrzna funkja wewnatrz funkcji obiektu w strzałkowym wydaiu widzi this bo nie ma swojego
       //counter.strzala_obj(); //przy strzalkowej funkcji obiektu nie widac wewnatrz this
 
-      const wehicle = {
-        id: 0,
-        name: "wehicle",
-        about: function () {
-          console.log("about: " + this.name);
-        },
+      // const wehicle = {
+      //   id: 0,
+      //   name: "wehicle",
+      //   about: function () {
+      //     console.log("about: " + this.name);
+      //   },
+      // };
+
+      // const car = Object.create(wehicle);
+
+      // car.type = "osobowy";
+      // car.name = "Audi";
+      // car.id = 1;
+
+      // wehicle.about();
+      // car.about();
+      // console.log("------------------------------");
+      // console.log(wehicle);
+      // console.log(car);
+
+      Wehicle = function (name) {
+        this.name = name;
+        this.fun3 = function () {
+          console.log("kutas fun");
+        };
       };
+      Wehicle.prototype.ff = function () {
+        console.log("ff fun" + this.nazwa);
+      };
+      Wehicle.prototype.ff2 = function () {
+        console.log("ff2 fun");
+      };
+      const w = new Wehicle("nazwa");
+      w.nazwa = "nowa nazwa dla w";
+      const w2 = new Wehicle("nazwa");
+      w2.nazwa = "nowa nazwa dla w2";
+      w.ff();
+      w2.ff();
 
-      const car = Object.create(wehicle);
-      car.type = "osobowy";
-      car.name = "Audi";
-      car.id = 1;
-
-      wehicle.about();
-      car.about();
-      console.log("------------------------------");
-      console.log(wehicle);
-      console.log(car);
+      console.log(Wehicle.prototype);
     </script>
   </body>
 </html>
