@@ -29,7 +29,11 @@
     .todo__navbar {
       display: flex;
       justify-content: space-between;
+      padding: 10px 150px;
       width: 100%;
+    }
+    .todo__navbar-form {
+      width: 30%;
     }
     .todo__table {
       width: 100%;
@@ -66,6 +70,10 @@
       vertical-align: middle;
       text-align: center;
     }
+    .task-action {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
   </style>
   <body>
     <section class="main">
@@ -74,25 +82,29 @@
           <h5 class="todo__title card-title">Lista To do ver.1</h5>
           <nav class="todo__navbar">
             <form class="todo__navbar-form d-flex flex-row gap-2" action="#">
-              <input type="text" class="form-control" placeholder="zadanie" />
-              <input type="text" class="form-control" placeholder="utworzono" />
+              <input name="search-frase" type="text" class="form-control" placeholder="zadanie" />
+              <!-- <input type="text" class="form-control" placeholder="utworzono" />
               <input type="text" class="form-control" placeholder="termin" />
               <select class="form-select" id="inputGroupSelect01">
                 <option selected>wszytskie</option>
                 <option value="1">Normalny</option>
                 <option value="2">Średni</option>
                 <option value="3">Wysoki</option>
-              </select>
+              </select> -->
             </form>
-            <ul class="todo__navbar-nav navbar-nav d-flex flex-row justify-content-end gap-3">
-              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="add">Nowe</a></li>
-              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="closed">Zamknięte</a></li>
-              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="canceled">Anulowane</a></li>
+            <ul class="todo__navbar-nav navbar-nav d-flex flex-row align-items-center justify-content-end gap-3">
+              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="closed">Otwarte</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="canceled">Zamkniete</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="all">Wszystkie</a></li>
             </ul>
           </nav>
         </div>
         <div class="loading text-center d-none">Loading...</div>
         <div class="todo__body card-body">
+          <div class="task-action d-flex justify-content-between align-items-center">
+            <a href="#" class="add-task"><i class="bi bi-plus-square"></i></a>
+            <a href="#" class="refresh-task"><i class="bi bi-arrow-clockwise"></i></a>
+          </div>
           <table class="todo__table">
             <thead>
               <tr class="todo__header">
