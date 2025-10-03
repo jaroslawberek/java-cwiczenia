@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Canvas - Player</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+        background: #eef;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+
+      class Player {
+        constructor(x, y, imgSrc) {
+          this.x = x;
+          this.y = y;
+          this.width = 77;
+          this.height = 93;
+          this.img = new Image();
+          this.img.src = imgSrc;
+          this.speed = 3;
+          this.isLoaded = false;
+
+          // dopiero jak obrazek się załaduje → flaga na true
+          this.img.onload = () => {
+            this.isLoaded = true;
+          };
+        }
+
+        draw() {
+          if (this.isLoaded) {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+          } else {
+            // placeholder zanim obrazek się wczyta
+            ctx.fillStyle = "red";
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+          }
+        }
+
+        update(keys) {
+          if (keys["ArrowUp"]) this.y -= this.speed;
+          if (keys["ArrowDown"]) this.y += this.speed;
+          if (keys["ArrowLeft"]) this.x -= this.speed;
+          if (keys["ArrowRight"]) this.x += this.speed;
+        }
+      }
+
+      const keys = {};
+      window.addEventListener("keydown", (e) => (keys[e.key] = true));
+      window.addEventListener("keyup", (e) => (keys[e.key] = false));
+
+      const player = new Player(100, 100, "drzewo.png");
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        player.update(keys);
+        player.draw();
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>

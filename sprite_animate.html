@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Animacja Sprite - Goblin</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+        background: #eef;
+        display: block;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <script>
+      class Sprite {
+        constructor(img, frameWidth, frameHeight, frameCount, fps = 10) {
+          this.img = img;
+          this.frameWidth = frameWidth;
+          this.frameHeight = frameHeight;
+          this.frameCount = frameCount;
+
+          this.currentFrame = 0;
+          this.elapsedTime = 0;
+          this.frameDuration = 1000 / fps; // czas jednej klatki w ms
+        }
+
+        update(deltaTime) {
+          this.elapsedTime += deltaTime;
+          if (this.elapsedTime >= this.frameDuration) {
+            this.currentFrame = (this.currentFrame + 1) % this.frameCount;
+            this.elapsedTime = 0;
+          }
+        }
+
+        draw(ctx, dx, dy, dWidth, dHeight) {
+          let sx = this.currentFrame * this.frameWidth;
+          let sy = 0; // tylko pierwszy rząd sprite'ów
+          ctx.drawImage(
+            this.img,
+            sx,
+            sy,
+            this.frameWidth,
+            this.frameHeight, // źródło
+            dx,
+            dy,
+            dWidth,
+            dHeight // docelowe miejsce i rozmiar
+          );
+        }
+      }
+
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const img = new Image();
+      img.src = "goblin.png"; // plik w tym samym katalogu
+
+      let lastTime = 0;
+      let goblin;
+
+      img.onload = () => {
+        // zakładam sprite sheet 4 klatki po 64x64
+        goblin = new Sprite(img, 64, 64, 4, 8); // 8 fps
+        requestAnimationFrame(animate);
+      };
+
+      function animate(timeStamp) {
+        const deltaTime = timeStamp - lastTime;
+        lastTime = timeStamp;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        goblin.update(deltaTime);
+        goblin.draw(ctx, 10, 10, 64, 64); // wyświetl w (10,10) o rozmiarze 100x200
+
+        requestAnimationFrame(animate);
+      }
+    </script>
+  </body>
+</html>

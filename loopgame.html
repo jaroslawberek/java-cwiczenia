@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Minimalny Game Loop</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+        background: #eef;
+        display: block;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // === Klasy obiektów gry ===
+      class Player {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.speed = 100; // px na sekundę
+        }
+        update(deltaTime) {
+          // poruszaj w prawo w tempie zależnym od czasu
+          this.x += this.speed * (deltaTime / 1000);
+        }
+        draw(ctx) {
+          ctx.fillStyle = "blue";
+          ctx.fillRect(this.x, this.y, 30, 30);
+        }
+      }
+
+      class Enemy {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.speed = 50; // px na sekundę
+        }
+        update(deltaTime) {
+          // poruszaj w dół
+          this.y += this.speed * (deltaTime / 1000);
+        }
+        draw(ctx) {
+          ctx.fillStyle = "red";
+          ctx.fillRect(this.x, this.y, 30, 30);
+        }
+      }
+
+      // === Obiekty w grze ===
+      const objects = [];
+      objects.push(new Player(10, 100));
+      objects.push(new Enemy(200, 0));
+
+      // === Game loop ===
+      let lastTime = 0;
+      function gameLoop(timeStamp) {
+        const deltaTime = timeStamp - lastTime;
+        lastTime = timeStamp;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // aktualizuj i rysuj wszystkie obiekty
+        objects.forEach((obj) => obj.update(deltaTime));
+        objects.forEach((obj) => obj.draw(ctx));
+
+        requestAnimationFrame(gameLoop);
+      }
+
+      requestAnimationFrame(gameLoop);
+    </script>
+  </body>
+</html>
