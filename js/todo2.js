@@ -17,7 +17,7 @@ function Model(param) {
     this.getTask = function (pos) {
         if (!pos) throw ("Nie podano pozycji");
         return {
-            task_id: Date.now,
+            task_id: Date.now(),
             pos: pos,
             task_text: faker.word.words({ count: { min: 5, max: 20 } }),
             task_create: faker.date.between({ from: '2025-01-01', to: '2025-09-30' }).toISOString().split('T')[0], // '2026-05-16T02:22:53.002Z',
@@ -56,12 +56,19 @@ Model.prototype.sort = function (order) {
     console.log("Model--sort()");
 }
 
-Model.prototype.searchByStatus = function (status) {
+Model.prototype.search = function (frase) {
     console.log("Model--searchByStatus()");
+    const searchTable = this.table.filter(task => task.task_text.indexOf(frase) > -1);
+    return searchTable;
 }
 
-Model.prototype.close = function (id) {
+Model.prototype.close = function (findId) {
+    if (!findId || String(findId) === "")
+        throw new Error("Niepoprawny identyfikator");
+
     console.log("Model--close()");
+    const task = this.table.find(task => String(task.task_id) === String(findId));
+    task.status = "close";
     return this.table;
 }
 Model.prototype.insert = function (task) {
@@ -72,8 +79,11 @@ Model.prototype.update = function (task) {
     console.log("Model--update()");
     return this.table;
 }
-Model.prototype.delete = function (id) {
-    console.log("Model--delete()");
+Model.prototype.delete = function (findId) {
+    if (!findId || String(findId) === "")
+        throw new Error("Niepoprawny identyfikator lub go brak");
+    const index = this.table.findIndex(task => String(task.task_id) === String(findId));
+    this.table.splice(index, 1); /// nie SLICE co kopiuje fragent tabeli
     return this.table;
 }
 
@@ -196,6 +206,7 @@ export default function ToDo(initObj = null) {
      */
     let toDoContent;
     let toDoHeader;
+    let toDoTaskAction;
     let toDoTable
     let model = new Model();
     let _initObj
@@ -216,11 +227,12 @@ export default function ToDo(initObj = null) {
 
         toDoContent = initObj.content;
         toDoHeader = document.querySelector(toDoContent + " .todo__header");
-        toDoTable = document.querySelector(toDoContent + " .todo__table");
+        toDoTaskAction = document.querySelector(toDoContent + " .task-action");
+        toDoTable = document.querySelector(toDoContent + " .todo__table tbody");
 
 
         // Dla testu pobieramy dane testowe z Facker.js
-        model.loadFromFaker(10, () => {
+        model.loadFromFaker(5, () => {
             //this.onLoaded();
             toDoTable.innerHTML = view.render(model.refresh(), "table");
             events();
@@ -233,30 +245,63 @@ export default function ToDo(initObj = null) {
      */
     function events() {
         //console.log("events");
+
         toDoTable.addEventListener("click", function (e) {
             e.stopPropagation();
             if (e.target.closest(".delete-task")) {
-                console.log("ToDo--event--delete task");
-                let r = view.render(model.delete(), "table");
+                const btnDelete = e.target.closest(".delete-task");
+                const task = btnDelete.closest(".todo__task");
+                let r = view.render(model.delete(task.id), "table");
                 toDoTable.innerHTML = r;
             }
             else if (e.target.closest(".edit-task")) {
                 console.log("ToDo--event--edit task");
-                let r = view.render(model.update(), "table");
+                let r = view.render(model.update(task.id), "table");
                 toDoTable.innerHTML = r;
             }
             else if (e.target.closest(".close-task")) {
-                console.log("ToDo--event--close task");
-                let r = view.render(model.close(), "table");
+                const btnClose = e.target.closest(".close-task");
+                const task = btnClose.closest(".todo__task");
+                let r = view.render(model.close(task.id), "table");
                 toDoTable.innerHTML = r;
             }
         });
-        toDoHeader.addEventListener("click", function (e) {
-            e.stopPropagation();
-            model.insert();
-            model.searchByStatus();
-            let r = view.render(model.table, "table");
+
+        /**
+         * Wyszukiwanie
+         */
+        toDoHeader.addEventListener("submit", function (e) {
+            e.preventDefault(); // zatrzymuje domyślne wysłanie formularza
+            const todoForm = toDoHeader.querySelector(".todo__navbar-form");
+            const formData = new FormData(todoForm);
+            formData.set("jebadełko", "ruchara");
+            for (const [key, value] of formData.entries()) {
+                console.log(key, value);
+            }
+
+            let r = view.render(model.search(formData.get("search-frase")), "table");
+            toDoTable.innerHTML = r;
         });
+
+        /**
+         * Klikniecia w: zamkniete i nowe zadania
+         */
+        toDoHeader.addEventListener("click", function (e) {
+
+        });
+
+        toDoTaskAction.addEventListener("click", function (e) {
+            if (e.target.closest(".add-task")) {
+                e.stopPropagation();
+                model.insert();
+                let r = view.render(model.table, "table");
+
+            }
+            else if (e.target.closest(".refresh-task")) {
+                console.log("refresh-task");
+                toDoTable.innerHTML = view.render(model.refresh(), "table");
+            }
+        })
 
     }
     function checkInitObj(aInitObj) {

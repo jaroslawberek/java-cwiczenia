@@ -25,7 +25,11 @@
     .todo__navbar {
       display: flex;
       justify-content: space-between;
+      padding: 10px 150px;
       width: 100%;
+    }
+    .todo__navbar-form {
+      width: 30%;
     }
     .todo__table {
       width: 100%;
@@ -62,6 +66,17 @@
       vertical-align: middle;
       text-align: center;
     }
+    .task-action {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .modal-dialog {
+      max-width: none;
+      width: 50%;
+    }
+    .modal-dialog form {
+      width: 100%;
+    }
   </style>
   <body>
     <section class="main">
@@ -70,25 +85,31 @@
           <h5 class="todo__title card-title">Lista To do ver.1</h5>
           <nav class="todo__navbar">
             <form class="todo__navbar-form d-flex flex-row gap-2" action="#">
-              <input type="text" class="form-control" placeholder="zadanie" />
-              <input type="text" class="form-control" placeholder="utworzono" />
+              <input name="search-frase" type="text" class="form-control" placeholder="zadanie" />
+              <!-- <input type="text" class="form-control" placeholder="utworzono" />
               <input type="text" class="form-control" placeholder="termin" />
               <select class="form-select" id="inputGroupSelect01">
                 <option selected>wszytskie</option>
                 <option value="1">Normalny</option>
                 <option value="2">Średni</option>
                 <option value="3">Wysoki</option>
-              </select>
+              </select> -->
             </form>
-            <ul class="todo__navbar-nav navbar-nav d-flex flex-row justify-content-end gap-3">
-              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="add">Nowe</a></li>
-              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="closed">Zamknięte</a></li>
-              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="canceled">Anulowane</a></li>
+            <ul class="todo__navbar-nav navbar-nav d-flex flex-row align-items-center justify-content-end gap-3">
+              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="closed">Otwarte</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="canceled">Zamkniete</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-task-nav="all">Wszystkie</a></li>
             </ul>
           </nav>
         </div>
         <div class="loading text-center d-none">Loading...</div>
         <div class="todo__body card-body">
+          <div class="task-action d-flex justify-content-between align-items-center">
+            <a href="#" class="add-task" data-bs-toggle="modal" data-bs-target="#todo__task-modal"
+              ><i class="bi bi-plus-square"></i
+            ></a>
+            <a href="#" class="refresh-task"><i class="bi bi-arrow-clockwise"></i></a>
+          </div>
           <table class="todo__table">
             <thead>
               <tr class="todo__header">
@@ -102,6 +123,87 @@
             </thead>
             <tbody></tbody>
           </table>
+        </div>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="todo__task-modal"
+          data-bs-backdrop="static"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  <form action="#">
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="task-text" class="form-label mb-1">Treść zadania</label>
+                          <input name="task-text" id="task-text" class="form-control" type="text" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-3">
+                        <div class="mb-3">
+                          <label for="deadline" class="form-label">Termin </label>
+                          <input name="deadline" id="deadline" class="form-control" type="date" />
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="mb-3">
+                          <label for="priority" class="form-label">Ważność</label>
+                          <select name="priority" id="priority" class="form-select" aria-label="Default select example">
+                            <option value="normal">Zwykły</option>
+                            <option value="middle">Średni</option>
+                            <option value="hight">Wysoki</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Wyjdź</button>
+                <button type="button" class="btn btn-primary">Dodaj</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
+          Launch
+        </button>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="modalId"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="modalTitleId"
+          aria-hidden="true">
+          <div class="modal-dialog modal-sm modal-fullscreen" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">Body</div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
     </section>
